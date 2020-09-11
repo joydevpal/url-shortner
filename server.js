@@ -9,7 +9,7 @@ const app = express();
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
-const connectionString = process.env.MONGOOSE_URI;
+const connectionString = process.env.MONGODB_URI;
 mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Database connected successfully.');
