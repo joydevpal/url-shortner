@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stats</title>
+</head>
+
+<body>
+    <h1>Analytics</h1>
+    <div class="stats-data"></div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            fetch('api/getStats', {
+                method: 'GET',
+            })
+                .then(data => data.json())
+                .then(response => {
+                    response.map(item => {
+                        var uniqueCountry = item.country.filter((value, index, array) => {
+                            return array.indexOf(value) === index;
+                        });
+                        var html = `<p><strong>${item.originalUrl}</strong></p><p>${item.shortUrl}</p><br /><p>Total clicks: ${item.count}</p><p>Top countries: ${uniqueCountry}</p><hr />`;
+                        $(".stats-data").append(html);
+                    })
+                });
+        });
+    </script>
+</body>
+
+</html>
